@@ -1,0 +1,25 @@
+name: my_current_weather
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.4.3 <4.0.0"
+dependencies:
+  auth:
+    path: ../packages/auth
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  external_dependencies:
+    path: ../packages/external_dependencies
+  shared:
+    path: ../packages/shared
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  flutter_flavorizr: ^2.2.3
+  mocktail: ^1.0.3

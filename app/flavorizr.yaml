@@ -1,0 +1,22 @@
+flavors:
+    dev:
+      app:
+        name: "My Current Weather dev"
+      android:
+        applicationId: "com.mycurrentweather.dev"
+      ios:
+        bundleId: "com.mycurrentweather.dev"
+    hml:
+      app:
+        name: "My Current Weather  hml"
+      android:
+        applicationId: "com.mycurrentweather.hml"
+      ios:
+        bundleId: "com.mycurrentweather.hml"
+    prod:
+      app:
+        name: "My Current Weather "
+      android:
+        applicationId: "com.mycurrentweather.prod"
+      ios:
+        bundleId: "com.mycurrentweather.prod"
