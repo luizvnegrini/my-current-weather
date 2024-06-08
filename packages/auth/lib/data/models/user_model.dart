@@ -5,7 +5,7 @@ import '../../domain/domain.dart';
 class UserModel extends Equatable {
   final String username;
 
-  UserModel({required this.username});
+  const UserModel({required this.username});
 
   @override
   List<Object?> get props => [username];

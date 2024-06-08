@@ -26,14 +26,16 @@ class AppViewModel extends IAppViewModel {
       const Duration(seconds: 1),
     );
 
-    await Future.wait<dynamic>([
+    final futureResults = await Future.wait<dynamic>([
       splashMinDuration,
+      AppDependencies.load(),
+      AuthDependencies.load(),
     ]);
 
     value = AsyncValue.data(
       AppState(
-        appDependencies: AppDependencies.load(),
-        authDependencies: AuthDependencies.load(),
+        appDependencies: futureResults[1],
+        authDependencies: futureResults[2],
       ),
     );
   }

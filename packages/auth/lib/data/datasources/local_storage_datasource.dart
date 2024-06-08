@@ -22,7 +22,7 @@ class LocalStorageDatasource implements ILocalStorageDatasource {
     required String username,
     required String password,
   }) async {
-    final user = await _localStorageAdapter.fetch(_userKey);
+    final userData = _localStorageAdapter.fetch(_userKey);
     throw UnimplementedError();
   }
 }

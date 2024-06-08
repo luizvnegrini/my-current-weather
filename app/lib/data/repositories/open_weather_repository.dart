@@ -20,7 +20,7 @@ class OpenWeatherRepository implements IOpenWeatherRepository {
       //   long: long,
       // );
 
-      return Right(unit);
+      return const Right(unit);
     } catch (e) {
       return Left(Failure(type: ExceptionType.serverError));
     }

@@ -1,1 +1,1 @@
-export 'dependencies.dart';
+export 'auth_dependencies.dart';

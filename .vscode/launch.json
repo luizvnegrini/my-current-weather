@@ -12,7 +12,9 @@
             "program": "app/lib/main_dev.dart",
             "args": [
                 "--flavor",
-                "dev"
+                "dev",
+                "--dart-define=OPENWEATHERMAP_KEY=0d4a4894b68a804e92fcad00aa8f4e69",
+                "--dart-define=OPENWEATHERMAP_BASE_URL=https://api.openweathermap.org",
             ]
         },
         {
@@ -23,7 +25,9 @@
             "program": "app/lib/main_hml.dart",
             "args": [
                 "--flavor",
-                "hml"
+                "hml",
+                "--dart-define=OPENWEATHERMAP_KEY=0d4a4894b68a804e92fcad00aa8f4e69",
+                "--dart-define=OPENWEATHERMAP_BASE_URL=https://api.openweathermap.org",
             ]
         },
         {
@@ -34,7 +38,9 @@
             "program": "app/lib/main_prod.dart",
             "args": [
                 "--flavor",
-                "prod"
+                "prod",
+                "--dart-define=OPENWEATHERMAP_KEY=0d4a4894b68a804e92fcad00aa8f4e69",
+                "--dart-define=OPENWEATHERMAP_BASE_URL=https://api.openweathermap.org",
             ]
         },
     ]
