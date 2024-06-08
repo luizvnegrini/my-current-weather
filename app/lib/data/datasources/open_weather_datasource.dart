@@ -1,18 +1,32 @@
-import 'package:external_dependencies/external_dependencies.dart';
-
 import '../../core/core.dart';
 
 abstract class IOpenWeatherDataSource {
-  Future<Unit> fetchData();
+  Future<Object> fetchData({
+    required num lat,
+    required num long,
+  });
 }
 
 class OpenWeatherDataSource implements IOpenWeatherDataSource {
-  final IRemoteDataSourceAdapter dataSource;
+  final IHttpClient client;
 
-  OpenWeatherDataSource(this.dataSource);
+  OpenWeatherDataSource({
+    required this.client,
+  });
 
   @override
-  Future<Unit> fetchData() async {
-    throw UnimplementedError();
+  Future<Object> fetchData({
+    required num lat,
+    required num long,
+  }) async {
+    return await client.get(
+      '',
+      options: HttpOptions(
+        queryParameters: {
+          'lat': lat,
+          'long': long,
+        },
+      ),
+    );
   }
 }

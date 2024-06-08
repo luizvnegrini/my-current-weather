@@ -1,5 +1,5 @@
 import 'package:external_dependencies/external_dependencies.dart';
-import 'package:shared/shared.dart';
+import 'package:shared/core/core.dart';
 
 import '../../domain/domain.dart';
 import '../data.dart';
@@ -10,11 +10,17 @@ class OpenWeatherRepository implements IOpenWeatherRepository {
   OpenWeatherRepository(this._dataSource);
 
   @override
-  Future<Either<Failure, Unit>> fetchData() async {
+  Future<Either<Failure, Unit>> fetchData({
+    required num lat,
+    required num long,
+  }) async {
     try {
-      final response = await _dataSource.fetchData();
-      throw UnimplementedError();
-      // return Right(response.toEntity());
+      // final data = await _dataSource.fetchData(
+      //   lat: lat,
+      //   long: long,
+      // );
+
+      return Right(unit);
     } catch (e) {
       return Left(Failure(type: ExceptionType.serverError));
     }

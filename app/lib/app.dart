@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auth/auth.dart';
 import 'package:auth/core/module/auth_module.dart';
 import 'package:external_dependencies/external_dependencies.dart';
 import 'package:flutter/material.dart';
@@ -44,8 +45,10 @@ class _App extends StatelessWidget {
 
   ProviderScope _loadAppFlow(IAppState state) {
     return ProviderScope(
-      overrides: const [
-        // ...authProviders(state.authDependencies.),
+      overrides: [
+        localStorageRepository.overrideWithValue(
+          state.authDependencies.localStorageRepository,
+        ),
       ],
       child: AppLoadedRoot(appTitle: appTitle),
     );
@@ -59,10 +62,13 @@ class _App extends StatelessWidget {
   }
 }
 
-final _router = GoRouter(routes: [
+final _router = GoRouter(
+  // redirect: redirect,
+  routes: [
   ...AppModule.routes,
   ...AuthModule.routes,
-]);
+],
+);
 
 class AppLoadedRoot extends HookConsumerWidget {
   const AppLoadedRoot({required this.appTitle, super.key});
