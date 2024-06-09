@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:auth/domain/domain.dart';
 import 'package:external_dependencies/external_dependencies.dart';
 import 'package:shared/shared.dart';
@@ -29,12 +27,15 @@ class LocalStorageRepository implements ILocalStorageRepository {
       //first call to this method will save the user
       if (userData == null) {
         final user = User(username: username, password: password);
-        await _localStorageAdapter.save(key: _userKey, value: jsonEncode(user));
+        await _localStorageAdapter.save(
+          key: _userKey,
+          value: UserMapper.toJson(user),
+        );
         isAuthenticated = true;
         return right(unit);
       }
 
-      final user = UserMapper.fromJson(userData as Map<String, dynamic>);
+      final user = UserMapper.fromJson(userData);
       if (user.password == password && user.username == username) {
         isAuthenticated = true;
         return right(unit);

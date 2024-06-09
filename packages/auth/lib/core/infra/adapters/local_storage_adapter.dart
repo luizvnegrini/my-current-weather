@@ -5,7 +5,7 @@ import 'package:external_dependencies/external_dependencies.dart';
 abstract class ILocalStorageAdapter {
   String? fetch(String key);
   void delete(String key);
-  Future<void> save({required String key, required dynamic value});
+  Future<void> save({required String key, required String value});
 }
 
 class LocalStorageAdapter implements ILocalStorageAdapter {
@@ -16,7 +16,7 @@ class LocalStorageAdapter implements ILocalStorageAdapter {
   @override
   Future<void> save({
     required String key,
-    required dynamic value,
+    required String value,
   }) async {
     localStorage.removeItem(key);
     localStorage.setItem(key, value);

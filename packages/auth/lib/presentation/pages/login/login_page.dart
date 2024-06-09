@@ -1,4 +1,5 @@
 import 'package:auth/presentation/pages/login/login_page_providers.dart';
+import 'package:auth/presentation/pages/login/login_page_state.dart';
 import 'package:design_system/design_system.dart';
 import 'package:external_dependencies/external_dependencies.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,10 @@ class LoginPage extends HookConsumerWidget {
 
     return HookBuilder(
       builder: (_) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.go('/');
+        });
+
         Widget? loader;
         if (state.isLoading) {
           loader = const Center(child: CircularProgressIndicator());
@@ -81,12 +86,22 @@ class LoginPage extends HookConsumerWidget {
                       ),
                     ],
                   ),
+                  defaultSpacer,
+                  defaultSpacer,
+                  if (_hasError(state)) ...[
+                    Text(
+                      state.errorMessage,
+                      style: TextStyle(color: Colors.red[500]),
+                    ),
+                  ],
                 ],
               ),
         );
       },
     );
   }
+
+  bool _hasError(ILoginPageState state) => state.errorMessage.isNotEmpty;
 
   bool _isValidForm({
     required String username,

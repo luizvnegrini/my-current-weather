@@ -39,7 +39,25 @@ class LoginPageViewModel extends ILoginPageViewModel {
   }) async {
     state = state.copyWith(isLoading: true);
 
-    // state = newState.copyWith(isLoading: false);
+    final response = await localStorageRepository.authenticate(
+      username: username,
+      password: password,
+    );
+
+    final newState = response.fold(
+      (failure) {
+        if (failure.type == ExceptionType.unauthorized) {
+          return state.copyWith(
+            errorMessage: 'Invalid credentials',
+          );
+        }
+
+        return state.copyWith(errorMessage: 'Try again later');
+      },
+      (_) => state.copyWith(successOnAuthenticate: true),
+    );
+
+    state = newState.copyWith(isLoading: false);
   }
 
   @override
