@@ -8,9 +8,6 @@ abstract class IAppDependencies {
   //repositories
   abstract final IOpenWeatherRepository openWeatherRepository;
 
-  //datasources
-  abstract final IOpenWeatherDataSource openWeatherDataSource;
-
   //adapters
   abstract final IGeoLocationServiceAdapter geoLocationService;
 }
@@ -20,16 +17,11 @@ class AppDependencies implements IAppDependencies {
   @override
   final IOpenWeatherRepository openWeatherRepository;
 
-  //datasources
-  @override
-  final IOpenWeatherDataSource openWeatherDataSource;
-
   //adapters
   @override
   final IGeoLocationServiceAdapter geoLocationService;
 
   AppDependencies({
-    required this.openWeatherDataSource,
     required this.openWeatherRepository,
     required this.geoLocationService,
   });
@@ -39,12 +31,10 @@ class AppDependencies implements IAppDependencies {
       baseUrl: Envs.openWeatherMapBaseUrl,
       interceptors: _getInterceptors(),
     );
-    final openWeatherDataSource = OpenWeatherDataSource(client: client);
 
     return AppDependencies(
       geoLocationService: GeoLocationServiceImpl(),
-      openWeatherDataSource: openWeatherDataSource,
-      openWeatherRepository: OpenWeatherRepository(openWeatherDataSource),
+      openWeatherRepository: OpenWeatherRepository(client),
     );
   }
 

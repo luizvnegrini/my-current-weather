@@ -15,7 +15,7 @@ final loginPageViewModel =
 );
 
 abstract class ILoginPageViewModel extends ViewModel<ILoginPageState> {
-  ILoginPageViewModel(LoginPageState super.state);
+  ILoginPageViewModel(super.state);
 
   abstract final ILocalStorageRepository localStorageRepository;
 

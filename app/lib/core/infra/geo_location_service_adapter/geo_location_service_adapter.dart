@@ -12,10 +12,6 @@ abstract class IGeoLocationServiceAdapter {
 class GeoLocationServiceImpl implements IGeoLocationServiceAdapter {
   late LocationPermission permission;
 
-  GeoLocationServiceImpl() {
-    handlePermission();
-  }
-
   Future<LocationPermission> get checkPermission =>
       Geolocator.checkPermission();
 
@@ -51,17 +47,30 @@ class GeoLocationServiceImpl implements IGeoLocationServiceAdapter {
   @override
   Future<entities.Position> getCurrentPosition() async {
     await handlePermission();
-    final position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.best,
-      forceAndroidLocationManager: true,
-    );
+    final permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse) {
+      final position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best,
+        forceAndroidLocationManager: true,
+      );
+
+      return entities.Position(
+        altitude: position.altitude,
+        latitude: position.latitude,
+        heading: position.heading,
+        longitude: position.longitude,
+        speed: position.speed,
+      );
+    }
 
     return entities.Position(
-      altitude: position.altitude,
-      latitude: position.latitude,
-      heading: position.heading,
-      longitude: position.longitude,
-      speed: position.speed,
+      altitude: 30.37487301576242,
+      latitude: -97.73875517798376,
+      heading: 0,
+      longitude: 0,
+      speed: 0,
     );
   }
 }

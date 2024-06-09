@@ -1,26 +1,36 @@
 import 'package:external_dependencies/external_dependencies.dart';
+import 'package:my_current_weather/core/core.dart';
 import 'package:shared/core/core.dart';
 
 import '../../domain/domain.dart';
-import '../data.dart';
 
 class OpenWeatherRepository implements IOpenWeatherRepository {
-  final IOpenWeatherDataSource _dataSource;
+  static const String api = '/data/2.5';
+  final IHttpClient _client;
 
-  OpenWeatherRepository(this._dataSource);
+  OpenWeatherRepository(this._client);
 
   @override
-  Future<Either<Failure, Unit>> fetchData({
+  Future<Either<Failure, CurrentWeather>> currentWeather({
     required num lat,
     required num long,
+    required String date,
   }) async {
     try {
-      // final data = await _dataSource.fetchData(
-      //   lat: lat,
-      //   long: long,
-      // );
+      final data = await _client.get(
+        '$api/weather',
+        options: HttpOptions(
+          queryParameters: {
+            'lat': lat,
+            'lon': long,
+          },
+        ),
+      );
 
-      return const Right(unit);
+      return data.fold(
+        (failure) => left(Failure(type: ExceptionType.serverError)),
+        (response) => right(CurrentWeather.fromJson(response.body)),
+      );
     } catch (e) {
       return Left(Failure(type: ExceptionType.serverError));
     }
