@@ -3,6 +3,7 @@ import 'package:my_current_weather/core/core.dart';
 import 'package:shared/core/core.dart';
 
 import '../../domain/domain.dart';
+import '../data.dart';
 
 class OpenWeatherRepository implements IOpenWeatherRepository {
   static const String api = '/data/2.5';
@@ -29,7 +30,7 @@ class OpenWeatherRepository implements IOpenWeatherRepository {
 
       return data.fold(
         (failure) => left(Failure(type: ExceptionType.serverError)),
-        (response) => right(CurrentWeather.fromJson(response.body)),
+        (response) => right(CurrentWeatherMapper.fromJson(response.body)),
       );
     } catch (e) {
       return Left(Failure(type: ExceptionType.serverError));

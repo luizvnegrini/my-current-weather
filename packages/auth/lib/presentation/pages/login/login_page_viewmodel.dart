@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:auth/auth.dart';
 import 'package:auth/presentation/pages/login/login_page_state.dart';
 import 'package:external_dependencies/external_dependencies.dart';
@@ -19,10 +17,11 @@ abstract class ILoginPageViewModel extends ViewModel<ILoginPageState> {
 
   abstract final ILocalStorageRepository localStorageRepository;
 
-  Future<void> authenticate({
+  void authenticate({
     required String username,
     required String password,
   });
+  Future<void> clearStorage();
 }
 
 class LoginPageViewModel extends ILoginPageViewModel {
@@ -33,18 +32,23 @@ class LoginPageViewModel extends ILoginPageViewModel {
   @override
   final ILocalStorageRepository localStorageRepository;
 
-  // @override
-  // void initViewModel() {
-  //   super.initViewModel();
-  // }
-
   @override
-  Future<void> authenticate({
+  void authenticate({
     required String username,
     required String password,
   }) async {
     state = state.copyWith(isLoading: true);
 
     // state = newState.copyWith(isLoading: false);
+  }
+
+  @override
+  Future<void> clearStorage() async {
+    state = state.copyWith(isLoading: true);
+
+    await Future.delayed(const Duration(seconds: 1));
+    localStorageRepository.clear();
+
+    state = state.copyWith(isLoading: false);
   }
 }

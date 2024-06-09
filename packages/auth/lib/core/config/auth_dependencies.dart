@@ -5,9 +5,6 @@ import '../../data/data.dart';
 import '../core.dart';
 
 abstract class IAuthDependencies {
-  //datasources
-  abstract final ILocalStorageDatasource localStorageDatasource;
-
   //repositories
   abstract final ILocalStorageRepository localStorageRepository;
 
@@ -16,10 +13,6 @@ abstract class IAuthDependencies {
 }
 
 class AuthDependencies implements IAuthDependencies {
-  //datasources
-  @override
-  final ILocalStorageDatasource localStorageDatasource;
-
   //repositories
   @override
   final ILocalStorageRepository localStorageRepository;
@@ -32,21 +25,17 @@ class AuthDependencies implements IAuthDependencies {
   AuthDependencies({
     required this.localStorageAdapter,
     required this.localStorageRepository,
-    required this.localStorageDatasource,
   });
 
   static Future<IAuthDependencies> load() async {
     await Core.initialize();
 
     final localStorageAdapter = LocalStorageAdapter();
-    final localStorageDatasource =
-        LocalStorageDatasource(localStorageAdapter: localStorageAdapter);
 
     return AuthDependencies(
       localStorageAdapter: localStorageAdapter,
-      localStorageDatasource: localStorageDatasource,
       localStorageRepository: LocalStorageRepository(
-        datasource: localStorageDatasource,
+        localStorageAdapter: localStorageAdapter,
       ),
     );
   }

@@ -32,4 +32,5 @@ abstract class BaseException extends Equatable implements Exception {
 enum ExceptionType {
   serverError,
   notFound,
+  unauthorized,
 }

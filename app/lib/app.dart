@@ -65,14 +65,6 @@ class _App extends StatelessWidget {
   }
 }
 
-final _router = GoRouter(
-  // redirect: redirect,
-  routes: [
-    ...AppModule.routes,
-    ...AuthModule.routes,
-  ],
-);
-
 class AppLoadedRoot extends HookConsumerWidget {
   const AppLoadedRoot({required this.appTitle, super.key});
 
@@ -80,6 +72,11 @@ class AppLoadedRoot extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(getRouter([
+      ...AppModule.routes,
+      ...AuthModule.routes,
+    ]));
+
     return MaterialApp.router(
       scaffoldMessengerKey: useScaffoldMessenger(ref),
       title: appTitle,
@@ -87,7 +84,7 @@ class AppLoadedRoot extends HookConsumerWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      routerConfig: _router,
+      routerConfig: router,
     );
   }
 }

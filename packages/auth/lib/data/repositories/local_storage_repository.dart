@@ -1,30 +1,53 @@
+import 'dart:convert';
+
 import 'package:auth/domain/domain.dart';
 import 'package:external_dependencies/external_dependencies.dart';
 import 'package:shared/shared.dart';
 
+import '../../core/core.dart';
 import '../data.dart';
 
 class LocalStorageRepository implements ILocalStorageRepository {
-  final ILocalStorageDatasource _datasource;
-
-  LocalStorageRepository({
-    required ILocalStorageDatasource datasource,
-  }) : _datasource = datasource;
+  final ILocalStorageAdapter _localStorageAdapter;
+  static const String _userKey = 'user';
 
   @override
-  Future<Either<Failure, User>> authenticate({
+  bool isAuthenticated = false;
+
+  LocalStorageRepository({
+    required ILocalStorageAdapter localStorageAdapter,
+  }) : _localStorageAdapter = localStorageAdapter;
+
+  @override
+  Future<Either<Failure, Unit>> authenticate({
     required String username,
     required String password,
   }) async {
     try {
-      final userModel = await _datasource.authenticate(
-        username: username,
-        password: password,
-      );
+      final userData = _localStorageAdapter.fetch(_userKey);
 
-      return Right(userModel.toEntity());
+      //first call to this method will save the user
+      if (userData == null) {
+        final user = User(username: username, password: password);
+        await _localStorageAdapter.save(key: _userKey, value: jsonEncode(user));
+        isAuthenticated = true;
+        return right(unit);
+      }
+
+      final user = UserMapper.fromJson(userData as Map<String, dynamic>);
+      if (user.password == password && user.username == username) {
+        isAuthenticated = true;
+        return right(unit);
+      }
+
+      return left(Failure(type: ExceptionType.unauthorized));
     } catch (e) {
       return Left(Failure(type: ExceptionType.serverError));
     }
+  }
+
+  @override
+  void clear() {
+    localStorage.clear();
   }
 }

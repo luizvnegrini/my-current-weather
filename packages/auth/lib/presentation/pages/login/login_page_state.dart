@@ -14,7 +14,7 @@ abstract class ILoginPageState extends ViewModelState {
 
 class LoginPageState extends ILoginPageState {
   const LoginPageState({
-    this.isLoading = true,
+    this.isLoading = false,
     this.errorMessage = '',
   });
 

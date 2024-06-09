@@ -6,8 +6,8 @@ import 'package:external_dependencies/external_dependencies.dart';
 import 'login_page_viewmodel.dart';
 
 //vm's
-ILoginPageViewModel readHomeViewModel(WidgetRef ref) =>
+ILoginPageViewModel readLoginViewModel(WidgetRef ref) =>
     ref.read(loginPageViewModel.notifier);
 
 //states
-ILoginPageState useHomeState(WidgetRef ref) => ref.watch(loginPageViewModel);
+ILoginPageState useLoginState(WidgetRef ref) => ref.watch(loginPageViewModel);
