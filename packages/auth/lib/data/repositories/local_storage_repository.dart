@@ -49,6 +49,6 @@ class LocalStorageRepository implements ILocalStorageRepository {
 
   @override
   void clear() {
-    localStorage.clear();
+    _localStorageAdapter.clear();
   }
 }

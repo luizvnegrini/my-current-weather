@@ -6,6 +6,7 @@ abstract class ILocalStorageAdapter {
   String? fetch(String key);
   void delete(String key);
   Future<void> save({required String key, required String value});
+  void clear();
 }
 
 class LocalStorageAdapter implements ILocalStorageAdapter {
@@ -27,4 +28,7 @@ class LocalStorageAdapter implements ILocalStorageAdapter {
 
   @override
   String? fetch(String key) => localStorage.getItem(key);
+
+  @override
+  void clear() => localStorage.clear();
 }

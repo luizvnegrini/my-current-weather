@@ -13,15 +13,7 @@ An app that show weather information.
 
 To run, take into account the flavors `dev`, `hml` e `prod`.  
 
-Each flavor has a configuration file inside the folder `base_app/.env`.  
-
-Always run as follows:  
-
-```bash
-bash scripts.sh -get
-cd base_app
-flutter run -t lib/main-<flavor>.dart --flavor <flavor> 
-```
+Each flavor has a configuration file inside the folder `base_app/.env`.
 
 ## **2. Tests**
 
@@ -67,6 +59,6 @@ I will apply a clean architecture layer pattern here, but I will only use the ne
 
 - Also improve the performance of the app using managing the rebuild of hooks only when necessary and leaving it in specific widgets.
 
-- I didn't find it necessary to create microapps for this project for now, if in the future it is necessary, it will be possible to separate dependencies in another microapp (making the project a monorepo) and also separating each feature in its microapp.
+- I created packages just to illustrate how I would do it in a project that needs to scale and show knowledge.
 
-- Use Melos to get packages dependencies
+- Use Melos to get packages dependencies.

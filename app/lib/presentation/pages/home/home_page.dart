@@ -158,9 +158,11 @@ class ErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onTryAgain,
-      child: const Text('Try again'),
+    return Center(
+      child: ElevatedButton(
+        onPressed: onTryAgain,
+        child: const Text('Try again'),
+      ),
     );
   }
 }
