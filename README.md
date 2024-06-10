@@ -53,6 +53,8 @@ I will apply a clean architecture layer pattern here, but I will only use the ne
 
 ## **6. Critique**
 
+- Improve the UI and UX of the pages, they could be much more elaborate.
+
 - As a main criticism it would increase test coverage and perform more different types of tests.
 
 - Create a default theme to reduce boilerplate from widgets.
