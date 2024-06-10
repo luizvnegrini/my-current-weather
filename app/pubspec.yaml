@@ -7,7 +7,7 @@ environment:
 dependencies:
   auth:
     path: ../packages/auth
-  design_system: 
+  design_system:
     path: ../packages/design_system
   flutter:
     sdk: flutter

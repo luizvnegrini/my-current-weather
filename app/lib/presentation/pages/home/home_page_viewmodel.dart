@@ -45,17 +45,15 @@ class HomePageViewModel extends IHomePageViewModel {
   Future<void> getWeatherData() async {
     state = state.copyWith(isLoading: true);
 
-    final date = DateTime.now().yyyyMMdd;
     final position = await geoLocationServiceAdapter.getCurrentPosition();
     final response = await openWeatherRepository.currentWeather(
       lat: position.latitude,
       long: position.longitude,
-      date: date,
     );
 
     final newState = response.fold(
       (failure) => throw UnimplementedError(),
-      (dailyAggregation) => state.copyWith(dailyAggregation: dailyAggregation),
+      (currWeather) => state.copyWith(currentWeather: currWeather),
     );
 
     state = newState.copyWith(

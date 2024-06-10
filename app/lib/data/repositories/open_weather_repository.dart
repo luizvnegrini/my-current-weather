@@ -15,7 +15,6 @@ class OpenWeatherRepository implements IOpenWeatherRepository {
   Future<Either<Failure, CurrentWeather>> currentWeather({
     required num lat,
     required num long,
-    required String date,
   }) async {
     try {
       final data = await _client.get(
@@ -24,6 +23,7 @@ class OpenWeatherRepository implements IOpenWeatherRepository {
           queryParameters: {
             'lat': lat,
             'lon': long,
+            'units': 'metric',
           },
         ),
       );

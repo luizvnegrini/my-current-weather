@@ -8,13 +8,13 @@ abstract class IHomePageState extends ViewModelState {
   abstract final bool isLoading;
   abstract final String errorMessage;
   abstract final Position? position;
-  abstract final CurrentWeather? dailyAggregation;
+  abstract final CurrentWeather? currentWeather;
 
   IHomePageState copyWith({
     bool? isLoading,
     String? errorMessage,
     Position? position,
-    CurrentWeather? dailyAggregation,
+    CurrentWeather? currentWeather,
   });
 }
 
@@ -23,7 +23,7 @@ class HomePageState extends IHomePageState {
     this.isLoading = true,
     this.errorMessage = '',
     this.position,
-    this.dailyAggregation,
+    this.currentWeather,
   });
 
   factory HomePageState.initial() => const HomePageState();
@@ -35,14 +35,14 @@ class HomePageState extends IHomePageState {
   @override
   final Position? position;
   @override
-  final CurrentWeather? dailyAggregation;
+  final CurrentWeather? currentWeather;
 
   @override
   List<Object?> get props => [
         isLoading,
         errorMessage,
         position,
-        dailyAggregation,
+        currentWeather,
       ];
 
   @override
@@ -50,12 +50,12 @@ class HomePageState extends IHomePageState {
     isLoading,
     errorMessage,
     position,
-    dailyAggregation,
+    currentWeather,
   }) =>
       HomePageState(
         isLoading: isLoading ?? this.isLoading,
         errorMessage: errorMessage ?? this.errorMessage,
         position: position ?? this.position,
-        dailyAggregation: dailyAggregation ?? this.dailyAggregation,
+        currentWeather: currentWeather ?? this.currentWeather,
       );
 }

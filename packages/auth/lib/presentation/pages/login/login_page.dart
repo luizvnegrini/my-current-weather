@@ -19,9 +19,11 @@ class LoginPage extends HookConsumerWidget {
 
     return HookBuilder(
       builder: (_) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          context.go('/');
-        });
+        if (state.successOnAuthenticate == true) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            context.go('/');
+          });
+        }
 
         Widget? loader;
         if (state.isLoading) {

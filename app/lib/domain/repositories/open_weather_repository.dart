@@ -7,6 +7,5 @@ abstract class IOpenWeatherRepository {
   Future<Either<Failure, CurrentWeather>> currentWeather({
     required num lat,
     required num long,
-    required String date,
   });
 }
